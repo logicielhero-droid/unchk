@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réseau Informatique - Cours</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .btn-retour {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-retour:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #f5576c;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5em;
+        }
+        
+        .cours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .cours-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .cours-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .cours-card h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+        
+        .pdf-list {
+            list-style: none;
+        }
+        
+        .pdf-list li {
+            margin: 10px 0;
+        }
+        
+        .pdf-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .pdf-link:hover {
+            background-color: rgba(255,255,255,0.4);
+            transform: translateX(5px);
+        }
+        
+        .pdf-link::before {
+            content: '📄 ';
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../index.html" class="btn-retour">← Retour à l'accueil</a>
+        <h1>🌐 Réseau Informatique - Mes Cours</h1>
+        
+        <div class="cours-grid">
+            <div class="cours-card">
+                <h2>Algorithme et Langage C</h2>
+                <ul class="pdf-list">
+                    <li><a href="Algo  et language C/GL_RI_2025_2026_Algo_langageC.pdf" class="pdf-link">GL_RI_2025_2026_Algo_langageC</a></li>
+                </ul>
+            </div>
+            
+            <div class="cours-card">
+                <h2>Analyse et Conception Systèmes</h2>
+                <ul class="pdf-list">
+                    <li><a href="Analyse et conceotion des systèmes orienté/MERISE_Chaptre_1_debut.pdf" class="pdf-link">MERISE_Chaptre_1_debut</a></li>
+                </ul>
+            </div>
+            
+            <div class="cours-card">
+                <h2>Développement Web</h2>
+                <ul class="pdf-list">
+                    <li><a href="DEV WEB/ISI Dev Web.pdf" class="pdf-link">ISI Dev Web</a></li>
+                </ul>
+            </div>
+            
+            <div class="cours-card">
+                <h2>Mathématique</h2>
+                <ul class="pdf-list">
+                    <li><a href="Mathématique/Statistiques bts 2026.pdf" class="pdf-link">Statistiques BTS 2026</a></li>
+                    <li><a href="Mathématique/AWA SECK/AWA SECK/" class="pdf-link" style="background-color: rgba(255,255,255,0.3); padding: 10px 15px; border-radius: 4px;">Dossier AWA SECK →</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        console.log('Page de cours Réseau Informatique chargée');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM complètement chargé');
+        });
+    </script>
+</body>
+</html>
