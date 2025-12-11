@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'accueil - AWA SECK</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .btn-retour {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            border: 2px solid #ff5252;
+        }
+        
+        .btn-retour:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            color: #667eea;
+            margin: 20px 0 10px 0;
+        }
+        
+        h1 { font-size: 2.5em; }
+        h2 { font-size: 2em; }
+        h3 { font-size: 1.8em; }
+        
+        p {
+            margin: 15px 0;
+            text-align: justify;
+        }
+        
+        ol, ul {
+            margin: 20px 0 20px 40px;
+        }
+        
+        li {
+            margin: 10px 0;
+            padding: 5px 0;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../../../../index.html" class="btn-retour">← Retour à l'accueil</a>
+    <h1>JE SUIS ETUDIANT A L'ISI</h1>  
+  <h2>JE SUIS EN PREMIERE ANNEE</h2>
+  <h3>Je suis un étudiant motivé</h3>
+  <h4>je suis passionné par l'informatique</h4>
+  <h5>Je suis déterminé à réussir</h5>
+    <h6>Je suis prêt à relever tous les défis</h6>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, libero deserunt. Accusantium ad, nulla perferendis saepe vitae pariatur optio assumenda fugiat animi unde similique, dolorum dicta reiciendis at rerum debitis esse blanditiis accusamus nobis cumque officia laboriosam reprehenderit temporibus neque. Sit, suscipit itaque! Aut tempora aliquam itaque modi ex tenetur alias cum recusandae hic exercitationem eveniet, magnam voluptates totam laudantium? Corporis qui facilis, atque delectus fugiat itaque alias ut rem voluptatibus animi repellendus beatae. Animi voluptatem vero autem voluptates consequuntur, nulla aliquam enim voluptate facere praesentium doloribus, suscipit obcaecati ratione placeat a voluptas illo nobis totam quidem recusandae dolor laboriosam, soluta necessitatibus blanditiis. Minus corrupti aliquid autem sint a sunt quis alias, officia placeat adipisci sed est architecto, ipsum accusamus unde consectetur aspernatur eos nostrum libero consequatur! In rem exercitationem modi provident, recusandae dignissimos quisquam reprehenderit sequi odit eos. Minus sit id praesentium vel dolorum corporis cumque possimus a ab.
+    </p>
+    <ol>
+        <li>Mbakhal</li>
+        <li>Mafé</li>
+        <li>Yassa</li>
+        <li>Thiébou Yapp</li>
+    </ol>
+    <ul>
+        <li>Khadidiatou Ba</li>
+        <li>Awa Seck</li>
+        <li>Mor Thiam</li>
+    </ul>
+    <img src="image_isi.jpg" alt="imge isi">
+    <img src="images/etudiant_isi.jpg" alt="groupe d'etudiant isi">
+    <img src="images/ceremonie/evenement.jpg" alt="">
+    <img src="https://i.pinimg.com/736x/b9/d6/f9/b9d6f9c6990274a5b4e3ea3d0168186b.jpg" alt="">
+    <img src="https://i.pinimg.com/736x/b9/d6/f9/b9d6f9c6990274a5b4e3ea3d0168186b.jpg" alt="">
+  </div>
+  
+  <script>
+    console.log('Page chargée avec succès!');
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM complétement chargé');
+        // Ajouter une animation au scroll
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.addEventListener('load', function() {
+                this.style.opacity = '1';
+            });
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emploi du Temps - Génie Logiciel</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%23667eea'>🎓</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #667eea;
+            --primary-dark: #764ba2;
+            --danger: #ff6b6b;
+            --success: #51cf66;
+            --warning: #ffa94d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.1);
+        }
+        
+        .btn-retour {
+            background: rgba(255,107,107,0.3);
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-retour:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 90px auto 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            padding: 40px;
+            animation: slideIn 0.6s ease-out;
+        }
+        
+        body.dark-mode .container {
+            background: #2a2a2a;
+            color: white;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 2.5em;
+        }
+        
+        body.dark-mode h1 {
+            color: #64b5f6;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        body.dark-mode .subtitle {
+            color: #aaa;
+        }
+        
+        .day-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .day-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-mode .day-btn {
+            background: #3a3a3a;
+            color: #64b5f6;
+            border-color: #64b5f6;
+        }
+        
+        .day-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .day-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .schedule-table th,
+        .schedule-table td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        body.dark-mode .schedule-table th,
+        body.dark-mode .schedule-table td {
+            border-color: #555;
+        }
+        
+        .schedule-table th {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .schedule-table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        body.dark-mode .schedule-table tr:hover {
+            background: #3a3a3a;
+        }
+        
+        .time {
+            font-weight: bold;
+            color: var(--primary);
+            width: 100px;
+        }
+        
+        body.dark-mode .time {
+            color: #64b5f6;
+        }
+        
+        .course {
+            font-weight: bold;
+        }
+        
+        .instructor {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        body.dark-mode .instructor {
+            color: #aaa;
+        }
+        
+        .room {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        body.dark-mode .room {
+            color: #aaa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .badge-math { background: #e3f2fd; color: #1976d2; }
+        .badge-web { background: #f3e5f5; color: #7b1fa2; }
+        .badge-algo { background: #e8f5e9; color: #388e3c; }
+        .badge-network { background: #fff3e0; color: #e65100; }
+        .badge-conception { background: #ede7f6; color: #6a1b9a; }
+        .badge-web { background: #f3e5f5; color: #7b1fa2; }
+        .badge-office { background: #fff9c4; color: #f9a825; }
+        .badge-math { background: #e3f2fd; color: #1976d2; }
+        .badge-archi { background: #e1f5fe; color: #0277bd; }
+        .badge-an { background: #ffebee; color: #c62828; }
+        .badge-os { background: #f1f8e9; color: #558b2f; }
+        .badge-maint { background: #e8f5e9; color: #2e7d32; }
+        .badge-algo { background: #e8f5e9; color: #388e3c; }
+        .badge-c { background: #fff3e0; color: #ef6c00; }
+        
+        body.dark-mode .badge-math { background: #1a3a52; color: #64b5f6; }
+        body.dark-mode .badge-web { background: #3a1a52; color: #ce93d8; }
+        body.dark-mode .badge-algo { background: #1a3a1a; color: #81c784; }
+        body.dark-mode .badge-network { background: #3a2a1a; color: #ffb74d; }
+        
+        .no-schedule {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.1em;
+        }
+        
+        .legend {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        body.dark-mode .legend {
+            background: #3a3a3a;
+        }
+        
+        .legend h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        body.dark-mode .legend h3 {
+            color: #64b5f6;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin-right: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .legend-color {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin-top: 80px;
+            }
+            
+            .schedule-table th,
+            .schedule-table td {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+            
+            .day-selector {
+                justify-content: flex-start;
+                overflow-x: auto;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="../../index.html" class="btn-retour">← Retour</a>
+        <h2 style="color: white; margin: 0;">📅 Emploi du Temps</h2>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+    </div>
+    
+    <div class="container">
+        <h1>📚 Génie Logiciel - Emploi du Temps</h1>
+        <p class="subtitle">Consultez votre emploi du temps de la semaine</p>
+        
+        <!-- Sélecteur de jours -->
+        <div class="day-selector" id="daySelector">
+            <button class="day-btn active" data-day="lundi">Lundi</button>
+            <button class="day-btn" data-day="mardi">Mardi</button>
+            <button class="day-btn" data-day="mercredi">Mercredi</button>
+            <button class="day-btn" data-day="jeudi">Jeudi</button>
+            <button class="day-btn" data-day="vendredi">Vendredi</button>
+            <button class="day-btn" data-day="samedi">Samedi</button>
+        </div>
+        
+        <!-- Tableau d'emploi du temps -->
+        <table class="schedule-table" id="scheduleTable">
+            <thead>
+                <tr>
+                    <th>Heure</th>
+                    <th>Cours</th>
+                    <th>Instructeur</th>
+                    <th>Salle</th>
+                </tr>
+            </thead>
+            <tbody id="scheduleBody">
+            </tbody>
+        </table>
+        
+        <!-- Légende -->
+        <div class="legend">
+            <h3>📋 Légende des Modules</h3>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #ede7f6;"></span>
+                <span>Conception et Traitement d'Image</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #f3e5f5;"></span>
+                <span>Technologie Web</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #fff9c4;"></span>
+                <span>Bureautique</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #e3f2fd;"></span>
+                <span>Mathématique Générale</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #e1f5fe;"></span>
+                <span>Architecture</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #ffebee;"></span>
+                <span>Analyse Merise</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #f1f8e9;"></span>
+                <span>Système d'Exploitation</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #e8f5e9;"></span>
+                <span>Maintenance Informatique</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #e8f5e9;"></span>
+                <span>Algorithme</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background: #fff3e0;"></span>
+                <span>Langage C</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Données d'emploi du temps pour Génie Logiciel (horaires et modules exacts)
+        const scheduleData = {
+            lundi: [
+                { time: '09:00 - 13:00', course: 'Conception et Traitement d\'Image', instructor: 'M. NDIAYE', room: '—', badge: 'badge-conception', label: 'Conception' }
+            ],
+            mardi: [
+                { time: '09:00 - 12:00', course: 'Technologie Web (HTML, CSS)', instructor: 'M. DABO', room: '—', badge: 'badge-web', label: 'Web' }
+            ],
+            mercredi: [
+                { time: '10:00 - 12:00', course: 'Bureautique', instructor: 'M. SECK', room: '—', badge: 'badge-office', label: 'Bureautique' },
+                { time: '12:00 - 14:00', course: 'Mathématique Générale', instructor: 'M. NIANG', room: '—', badge: 'badge-math', label: 'Maths' },
+                { time: '15:00 - 17:00', course: 'Architecture', instructor: 'M. BAKHOUM', room: '—', badge: 'badge-archi', label: 'Architecture' }
+            ],
+            jeudi: [
+                { time: '15:00 - 18:00', course: 'Analyse Merise', instructor: 'M. DIENE', room: '—', badge: 'badge-an', label: 'Analyse Merise' }
+            ],
+            vendredi: [
+                { time: '08:00 - 10:00', course: 'Système d\'Exploitation', instructor: 'M. DIOP', room: '—', badge: 'badge-os', label: 'Syst. Expl.' },
+                { time: '10:00 - 12:00', course: 'Maintenance Informatique', instructor: 'M. DIOP', room: '—', badge: 'badge-maint', label: 'Maintenance' }
+            ],
+            samedi: [
+                { time: '08:00 - 10:00', course: 'Algorithme', instructor: 'M. BAKHOUM', room: '—', badge: 'badge-algo', label: 'Algorithme' },
+                { time: '10:00 - 12:00', course: 'Langage C', instructor: 'M. BAKHOUM', room: '—', badge: 'badge-c', label: 'Langage C' }
+            ]
+        };
+        
+        // Gestion du thème
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeToggle.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+        
+        // Afficher l'emploi du temps
+        function displaySchedule(day) {
+            const scheduleBody = document.getElementById('scheduleBody');
+            const schedule = scheduleData[day] || [];
+            
+            scheduleBody.innerHTML = '';
+            
+            if (schedule.length === 0) {
+                scheduleBody.innerHTML = '<tr><td colspan="4" class="no-schedule">Pas de cours ce jour</td></tr>';
+                return;
+            }
+            
+            schedule.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="time">${item.time}</td>
+                    <td>
+                        <div class="course">${item.course}</div>
+                        <span class="badge ${item.badge}">${item.label || item.course}</span>
+                    </td>
+                    <td class="instructor">${item.instructor}</td>
+                    <td class="room">${item.room}</td>
+                `;
+                scheduleBody.appendChild(row);
+            });
+        }
+        
+        // Gestion des boutons de jour
+        document.querySelectorAll('.day-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                displaySchedule(this.dataset.day);
+            });
+        });
+        
+        // Afficher l'emploi du temps du lundi par défaut
+        displaySchedule('lundi');
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Génie Logiciel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-retour {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-retour:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            margin-top: 10px;
+            font-size: 2em;
+        }
+        
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        p {
+            line-height: 1.6;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="../index.html" class="btn-retour">← Retour à l'accueil</a>
+        <h1>📚 Génie Logiciel</h1>
+        <a href="schedule.html" style="display: inline-block; padding: 10px 20px; background-color: #51cf66; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-left: 10px; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#40c057'; this.style.transform='translateY(-3px)';" onmouseout="this.style.backgroundColor='#51cf66'; this.style.transform='translateY(0)';">📅 Emploi du Temps</a>
+    </div>
+    
+    <div class="content">
+        <p>Bienvenue dans la section Génie Logiciel. Explorez nos cours et ressources pédagogiques.</p>
+    </div>
+    
+    <script>
+        console.log('Page Génie Logiciel chargée');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM complètement chargé');
+        });
+    </script>
+</body>
+</html>
